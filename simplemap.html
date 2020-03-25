@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!-- Styles -->
+<style>
+    #chartdiv {
+      width: 100%;
+      height: 500px;
+    }
+    text{
+        font-size:15px
+    }
+    #note {
+        font-size:12px  !important
+    }
+</style>
+    
+    <!-- Resources -->
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/continentsLow.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
+    <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Chart code -->
+    
+<body>
+    <span>Select Level of Education</span>
+    <select name="Level" id="Level">
+        <option value="Pre" class=levelo>Pre-primary</option>
+        <option value="Pri" class=levelo selected>Primary</option>
+        <option value="Secondary" class=levelo>Secondary</option>
+        <option value="Ter" class=levelo>Tertiary</option>
+    </select>
+    <div id="chartdiv"></div> 
+    <span id="note">
+    Note: Size of Pie signifies number of learners enrolled before COVID19<br/>
+    Source of Data : UIS; 
+    <a href="https://en.unesco.org/themes/education-emergencies/coronavirus-school-closures">UNESCO on School Closures due to COVID19</a>
+    </span>
+
+</body>
+<script>
+    var level='Pri'
+    var data=[
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "Arab States",
+    "YEAR": 2018,
+    "Before": 5733185,
+    "After": 703465,
+    "Rate": "87.73%",
+    "Level": "Pre",
+    "minus": 5029720.409
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "Central and Eastern Europe",
+    "YEAR": 2018,
+    "Before": 12844609,
+    "After": 6602181,
+    "Rate": "48.60%",
+    "Level": "Pre",
+    "minus": 6242428.013
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "Central Asia",
+    "YEAR": 2018,
+    "Before": 2824950,
+    "After": 279599,
+    "Rate": "90.10%",
+    "Level": "Pre",
+    "minus": 2545351.053
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "East Asia and the Pacific",
+    "YEAR": 2018,
+    "Before": 67113126,
+    "After": 8934314,
+    "Rate": "86.69%",
+    "Level": "Pre",
+    "minus": 58178812.25
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "Latin America and the Caribbean",
+    "YEAR": 2018,
+    "Before": 21872378,
+    "After": 5436049,
+    "Rate": "75.15%",
+    "Level": "Pre",
+    "minus": 16436328.52
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "North America and Western Europe",
+    "YEAR": 2018,
+    "Before": 21968528,
+    "After": 9261915.152,
+    "Rate": "57.84%",
+    "Level": "Pre",
+    "minus": 12706612.52
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "South and West Asia",
+    "YEAR": 2018,
+    "Before": 24235210,
+    "After": 0,
+    "Rate": "100.00%",
+    "Level": "Pre",
+    "minus": 24235210.33
+  },
+  {
+    "INDICATOR_ID": 20060,
+    "REGION_ID": "Sub-Saharan Africa",
+    "YEAR": 2018,
+    "Before": 25239409,
+    "After": 686321,
+    "Rate": "97.28%",
+    "Level": "Pre",
+    "minus": 24553088.2
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "Arab States",
+    "YEAR": 2018,
+    "Before": 47872167,
+    "After": 8923347,
+    "Rate": "81.36%",
+    "Level": "Pri",
+    "minus": 38948819.72
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "Central and Eastern Europe",
+    "YEAR": 2018,
+    "Before": 20173903,
+    "After": 7001385,
+    "Rate": "65.29%",
+    "Level": "Pri",
+    "minus": 13172518.4
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "Central Asia",
+    "YEAR": 2018,
+    "Before": 7025730,
+    "After": 1130104,
+    "Rate": "83.91%",
+    "Level": "Pri",
+    "minus": 5895626.258
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "East Asia and the Pacific",
+    "YEAR": 2018,
+    "Before": 186174081,
+    "After": 47984498,
+    "Rate": "74.23%",
+    "Level": "Pri",
+    "minus": 138189582.6
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "Latin America and the Caribbean",
+    "YEAR": 2018,
+    "Before": 64482867,
+    "After": 18985576,
+    "Rate": "70.56%",
+    "Level": "Pri",
+    "minus": 45497291.08
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "North America and Western Europe",
+    "YEAR": 2018,
+    "Before": 54115630,
+    "After": 27488303.23,
+    "Rate": "49.20%",
+    "Level": "Pri",
+    "minus": 26627326.4
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "South and West Asia",
+    "YEAR": 2018,
+    "Before": 202967802,
+    "After": 0,
+    "Rate": "100.00%",
+    "Level": "Pri",
+    "minus": 202967802.1
+  },
+  {
+    "INDICATOR_ID": 20062,
+    "REGION_ID": "Sub-Saharan Africa",
+    "YEAR": 2018,
+    "Before": 167927199,
+    "After": 9749997,
+    "Rate": "94.19%",
+    "Level": "Pri",
+    "minus": 158177202.1
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "Arab States",
+    "YEAR": 2018,
+    "Before": 32894405,
+    "After": 4175767,
+    "Rate": "87.31%",
+    "Level": "Secondary",
+    "minus": 28718638.26
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "Central and Eastern Europe",
+    "YEAR": 2018,
+    "Before": 33468613,
+    "After": 10554424,
+    "Rate": "68.46%",
+    "Level": "Secondary",
+    "minus": 22914189.04
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "Central Asia",
+    "YEAR": 2018,
+    "Before": 9620560,
+    "After": 1713973,
+    "Rate": "82.18%",
+    "Level": "Secondary",
+    "minus": 7906586.887
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "East Asia and the Pacific",
+    "YEAR": 2018,
+    "Before": 155424962,
+    "After": 37887230,
+    "Rate": "75.62%",
+    "Level": "Secondary",
+    "minus": 117537732
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "Latin America and the Caribbean",
+    "YEAR": 2018,
+    "Before": 63620753,
+    "After": 24168807,
+    "Rate": "62.01%",
+    "Level": "Secondary",
+    "minus": 39451946.26
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "North America and Western Europe",
+    "YEAR": 2018,
+    "Before": 64571049,
+    "After": 27440973.41,
+    "Rate": "57.50%",
+    "Level": "Secondary",
+    "minus": 37130075.62
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "South and West Asia",
+    "YEAR": 2018,
+    "Before": 174146960,
+    "After": 0,
+    "Rate": "100.00%",
+    "Level": "Secondary",
+    "minus": 174146960.1
+  },
+  {
+    "INDICATOR_ID": 20082,
+    "REGION_ID": "Sub-Saharan Africa",
+    "YEAR": 2018,
+    "Before": 60915890,
+    "After": 3782313,
+    "Rate": "93.79%",
+    "Level": "Secondary",
+    "minus": 57133576.55
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "Arab States",
+    "YEAR": 2018,
+    "Before": 11325106,
+    "After": 591334,
+    "Rate": "94.78%",
+    "Level": "Ter",
+    "minus": 10733771.58
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "Central and Eastern Europe",
+    "YEAR": 2018,
+    "Before": 19393586,
+    "After": 6275968,
+    "Rate": "67.64%",
+    "Level": "Ter",
+    "minus": 13117617.65
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "Central Asia",
+    "YEAR": 2018,
+    "Before": 2065745,
+    "After": 309837,
+    "Rate": "85.00%",
+    "Level": "Ter",
+    "minus": 1755908.019
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "East Asia and the Pacific",
+    "YEAR": 2018,
+    "Before": 72378115,
+    "After": 13968121.72,
+    "Rate": "80.70%",
+    "Level": "Ter",
+    "minus": 58409993.41
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "Latin America and the Caribbean",
+    "YEAR": 2018,
+    "Before": 27967160,
+    "After": 8947541,
+    "Rate": "68.01%",
+    "Level": "Ter",
+    "minus": 19019619.46
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "North America and Western Europe",
+    "YEAR": 2018,
+    "Before": 37758161,
+    "After": 20654511.09,
+    "Rate": "45.30%",
+    "Level": "Ter",
+    "minus": 17103650.14
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "South and West Asia",
+    "YEAR": 2018,
+    "Before": 44658956,
+    "After": 0,
+    "Rate": "100.00%",
+    "Level": "Ter",
+    "minus": 44658956.27
+  },
+  {
+    "INDICATOR_ID": 25053,
+    "REGION_ID": "Sub-Saharan Africa",
+    "YEAR": 2018,
+    "Before": 8125044,
+    "After": 413299,
+    "Rate": "94.91%",
+    "Level": "Ter",
+    "minus": 7711745.101
+  }
+]
+    $("#Level").change(function () {
+      level=$('#Level').val()
+    am4core.ready(function() {
+    datanew=data.filter(d=>d.Level==level)
+    const reducer = (accumulator, currentValue) => accumulator + (currentValue.Before-0);
+    levelsum=datanew.reduce(reducer,0)
+    console.log(levelsum);
+    
+    // Themes begin
+    am4core.useTheme(am4themes_dataviz);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create map instance
+    var chart = am4core.create("chartdiv", am4maps.MapChart);
+    
+    // Set map definition
+    chart.geodata = am4geodata_continentsLow;
+    
+    // Set projection
+    chart.projection = new am4maps.projections.Miller();
+    
+    // Create map polygon series
+    var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+    polygonSeries.exclude = ["antarctica"];
+    polygonSeries.useGeodata = true;
+    
+    // Create an image series that will hold pie charts
+    var pieSeries = chart.series.push(new am4maps.MapImageSeries());
+    var pieTemplate = pieSeries.mapImages.template;
+    pieTemplate.propertyFields.latitude = "latitude";
+    pieTemplate.propertyFields.longitude = "longitude";
+    
+    var pieChartTemplate = pieTemplate.createChild(am4charts.PieChart);
+    pieChartTemplate.adapter.add("data", function(data, target) {
+      if (target.dataItem) {
+        return target.dataItem.dataContext.pieData;
+      }
+      else {
+        return [];
+      }
+    });
+    pieChartTemplate.propertyFields.width = "width";
+    pieChartTemplate.propertyFields.height = "height";
+    pieChartTemplate.horizontalCenter = "middle";
+    pieChartTemplate.verticalCenter = "middle";
+    
+    var pieTitle = pieChartTemplate.titles.create();
+    pieTitle.text = "{title}";
+    pieTitle.fontSize = 13;
+
+    var pieSeriesTemplate = pieChartTemplate.series.push(new am4charts.PieSeries);
+    pieSeriesTemplate.dataFields.category = "category";
+    pieSeriesTemplate.dataFields.value = "value";
+    pieSeriesTemplate.labels.template.disabled = true;
+    pieSeriesTemplate.ticks.template.disabled = true;
+    
+
+function cal(region) {
+    return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']
+}
+    pieSeries.data = [
+        {
+      "title": "Arab States",
+      "latitude": 29,
+      "longitude": 45,
+      "width": cal("Arab States"),
+      "height": cal("Arab States"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Arab States')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Arab States')[0]['minus']
+      }]
+    }, {
+      "title": "Central and Eastern Europe",
+      "latitude": 65,
+      "longitude": 40,
+      "width": cal("Central and Eastern Europe"),
+      "height": cal("Central and Eastern Europe"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central and Eastern Europe')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central and Eastern Europe')[0]['minus']
+      }]
+    }, {
+      "title": "Central Asia",
+      "latitude": 50,
+      "longitude": 85,
+      "width": cal("Central Asia"),
+      "height": cal("Central Asia"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central Asia')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central Asia')[0]['minus']
+      }]
+    }, {
+      "title": "East Asia and the Pacific",
+      "latitude": 24,
+      "longitude": 140,
+      "width": cal("East Asia and the Pacific"),
+      "height": cal("East Asia and the Pacific"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='East Asia and the Pacific')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='East Asia and the Pacific')[0]['minus']
+      }]
+    },
+    {
+      "title": "Latin America and the Caribbean",
+      "latitude": -5,
+      "longitude": -60,
+      "width": cal("Latin America and the Caribbean"),
+      "height": cal("Latin America and the Caribbean"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Latin America and the Caribbean')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Latin America and the Caribbean')[0]['minus']
+      }]
+    },
+    {
+      "title": "North America and Western Europe",
+      "latitude": 45,
+      "longitude": -50,
+      "width": cal("North America and Western Europe"),
+      "height": cal("North America and Western Europe"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='North America and Western Europe')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='North America and Western Europe')[0]['minus']
+      }]
+    },
+    {
+      "title": "South and West Asia",
+      "latitude": 20,
+      "longitude":78,
+      "width": cal("South and West Asia"),
+      "height": cal("South and West Asia"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='South and West Asia')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='South and West Asia')[0]['minus']
+      }]
+    }, {
+      "title": "Sub-Saharan Africa",
+      "latitude": 0,
+      "longitude": 25,
+      "width": cal("Sub-Saharan Africa"),
+      "height": cal("Sub-Saharan Africa"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Sub-Saharan Africa')[0]['After']
+      }, { "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Sub-Saharan Africa')[0]['minus']
+      }]
+    }];
+    
+    }); // end am4core.ready()
+
+        
+    })
+
+    am4core.ready(function() {
+    datanew=data.filter(d=>d.Level==level)
+    const reducer = (accumulator, currentValue) => accumulator + (currentValue.Before-0);
+    levelsum=datanew.reduce(reducer,0)
+    console.log(levelsum);
+    
+    // Themes begin
+    am4core.useTheme(am4themes_dataviz);
+    am4core.useTheme(am4themes_animated);
+    // Themes end
+    
+    // Create map instance
+    var chart = am4core.create("chartdiv", am4maps.MapChart);
+    
+    // Set map definition
+    chart.geodata = am4geodata_continentsLow;
+    
+    // Set projection
+    chart.projection = new am4maps.projections.Miller();
+    
+    // Create map polygon series
+    var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+    polygonSeries.exclude = ["antarctica"];
+    polygonSeries.useGeodata = true;
+    
+    // Create an image series that will hold pie charts
+    var pieSeries = chart.series.push(new am4maps.MapImageSeries());
+    var pieTemplate = pieSeries.mapImages.template;
+    pieTemplate.propertyFields.latitude = "latitude";
+    pieTemplate.propertyFields.longitude = "longitude";
+    
+    var pieChartTemplate = pieTemplate.createChild(am4charts.PieChart);
+    pieChartTemplate.adapter.add("data", function(data, target) {
+      if (target.dataItem) {
+        return target.dataItem.dataContext.pieData;
+      }
+      else {
+        return [];
+      }
+    });
+    pieChartTemplate.propertyFields.width = "width";
+    pieChartTemplate.propertyFields.height = "height";
+    pieChartTemplate.horizontalCenter = "middle";
+    pieChartTemplate.verticalCenter = "middle";
+    
+    var pieTitle = pieChartTemplate.titles.create();
+    pieTitle.text = "{title}";
+    pieTitle.fontSize = 13;
+
+    var pieSeriesTemplate = pieChartTemplate.series.push(new am4charts.PieSeries);
+    pieSeriesTemplate.dataFields.category = "category";
+    pieSeriesTemplate.dataFields.value = "value";
+    pieSeriesTemplate.labels.template.disabled = true;
+    pieSeriesTemplate.ticks.template.disabled = true;
+    
+
+function cal(region) {
+    return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']
+}
+    pieSeries.data = [
+        {
+      "title": "Arab States",
+      "latitude": 29,
+      "longitude": 45,
+      "width": cal("Arab States"),
+      "height": cal("Arab States"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Arab States')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Arab States')[0]['minus']
+      }]
+    }, {
+      "title": "Central and Eastern Europe",
+      "latitude": 65,
+      "longitude": 40,
+      "width": cal("Central and Eastern Europe"),
+      "height": cal("Central and Eastern Europe"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central and Eastern Europe')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central and Eastern Europe')[0]['minus']
+      }]
+    }, {
+      "title": "Central Asia",
+      "latitude": 50,
+      "longitude": 85,
+      "width": cal("Central Asia"),
+      "height": cal("Central Asia"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central Asia')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Central Asia')[0]['minus']
+      }]
+    }, {
+      "title": "East Asia and the Pacific",
+      "latitude": 24,
+      "longitude": 140,
+      "width": cal("East Asia and the Pacific"),
+      "height": cal("East Asia and the Pacific"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='East Asia and the Pacific')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='East Asia and the Pacific')[0]['minus']
+      }]
+    },
+    {
+      "title": "Latin America and the Caribbean",
+      "latitude": -5,
+      "longitude": -60,
+      "width": cal("Latin America and the Caribbean"),
+      "height": cal("Latin America and the Caribbean"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Latin America and the Caribbean')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Latin America and the Caribbean')[0]['minus']
+      }]
+    },
+    {
+      "title": "North America and Western Europe",
+      "latitude": 45,
+      "longitude": -50,
+      "width": cal("North America and Western Europe"),
+      "height": cal("North America and Western Europe"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='North America and Western Europe')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='North America and Western Europe')[0]['minus']
+      }]
+    },
+    {
+      "title": "South and West Asia",
+      "latitude": 20,
+      "longitude":78,
+      "width": cal("South and West Asia"),
+      "height": cal("South and West Asia"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='South and West Asia')[0]['After']
+      }, {
+        "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='South and West Asia')[0]['minus']
+      }]
+    }, {
+      "title": "Sub-Saharan Africa",
+      "latitude": 0,
+      "longitude": 25,
+      "width": cal("Sub-Saharan Africa"),
+      "height": cal("Sub-Saharan Africa"),
+      "pieData": [{
+        "category": "Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Sub-Saharan Africa')[0]['After']
+      }, { "category": "Not Attending School",
+        "value": datanew.filter(d=>d.REGION_ID=='Sub-Saharan Africa')[0]['minus']
+      }]
+    }];
+    
+    }); // end am4core.ready()
+
+     
+   
+</script>
+</html>
