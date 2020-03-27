@@ -78,7 +78,8 @@
     svg.append('text').attr("class","labelcolor").text("Percentage of students in the region not attending school").attr("transform","translate(25,15)")
     svg.append('rect').attr('height',20).attr('width',20).attr('fill',"rgb(40,49,80)").attr("transform","translate(0,25)")
     svg.append('text').attr("class","labelcolor").text("Percentage of students in the region attending school").attr("transform","translate(25,40)")
-    var level='Pri'
+    var level='Pri';
+    var width= $(window).width();
     var data=[
   {
     "INDICATOR_ID": 20060,
@@ -408,7 +409,12 @@
     const reducer = (accumulator, currentValue) => accumulator + (currentValue.Before-0);
     levelsum=datanew.reduce(reducer,0)
     console.log(levelsum);
-    
+    function cal(region) {
+    if (width<400) {
+    return 3
+    }
+    else{return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']*width/1080}
+}
     // Themes begin
     am4core.useTheme(am4themes_dataviz);
     am4core.useTheme(am4themes_animated);
@@ -450,8 +456,9 @@
     
     var pieTitle = pieChartTemplate.titles.create();
     pieTitle.text = "{title}";
-    pieTitle.fontSize = 13;
-
+    pieTitle.text = "{title}";
+    pieTitle.dy=6;
+    pieTitle.dx=-7;
     var pieSeriesTemplate = pieChartTemplate.series.push(new am4charts.PieSeries);
     pieSeriesTemplate.dataFields.category = "category";
     pieSeriesTemplate.dataFields.value = "value";
@@ -490,7 +497,7 @@
       }]
     }, {
       "title": "Central Asia",
-      "latitude": 50,
+      "latitude": 54,
       "longitude": 85,
       "width": cal("Central Asia"),
       "height": cal("Central Asia"),
@@ -580,7 +587,12 @@
     const reducer = (accumulator, currentValue) => accumulator + (currentValue.Before-0);
     levelsum=datanew.reduce(reducer,0)
     console.log(levelsum);
-    
+    function cal(region) {
+    if (width<400) {
+    return 3
+    }
+    else{return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']*width/1080}
+}
     // Themes begin
     am4core.useTheme(am4themes_dataviz);
     am4core.useTheme(am4themes_animated);
@@ -622,7 +634,8 @@
     
     var pieTitle = pieChartTemplate.titles.create();
     pieTitle.text = "{title}";
-    pieTitle.fontSize = '1.08em';
+    pieTitle.dy=6;
+    pieTitle.dx=-7;
 
     var pieSeriesTemplate = pieChartTemplate.series.push(new am4charts.PieSeries);
     pieSeriesTemplate.dataFields.category = "category";
@@ -631,21 +644,8 @@
     pieSeriesTemplate.ticks.template.disabled = true;
     
       
-  var width= $(window).width();
-  console.log(width);
+ 
 
-    function cal(region) {
-    if (width<400) {
-      console.log(1);
-      
-      // return 1/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']*width/180000
-      return 3
-    }
-    else{return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']*width/1080}
-}
-// function cal(region) {
-//     return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']
-// }
     pieSeries.data = [
         {
       "title": "Arab States",
@@ -675,7 +675,7 @@
       }]
     }, {
       "title": "Central Asia",
-      "latitude": 50,
+      "latitude": 54,
       "longitude": 85,
       "width": cal("Central Asia"),
       "height": cal("Central Asia"),
