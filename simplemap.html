@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Proportion of students by region not attending school because of nation-wide school closures caused by COVID-19</title>
 </head>
 <!-- Styles -->
 <style>
@@ -12,11 +12,34 @@
       height: 500px;
     }
     text{
-        font-size:15px
+        font-size:1.5vw
+    }
+    text tspan{
+      font-size:1vw
     }
     #note {
         font-size:12px  !important
     }
+
+    h2{
+      align-content:center
+    }
+
+    .labelcolor{
+      font-size:12px
+    }
+    .label{
+      padding-top: 10px;
+    }
+
+    @media only screen and (max-width: 400px) {
+      text{
+        font-size:2vw
+    }
+    text tspan{
+      font-size:1.5vw
+    }
+}
 </style>
     
     <!-- Resources -->
@@ -27,9 +50,11 @@
     <script src="https://www.amcharts.com/lib/4/themes/dataviz.js"></script>
     <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <!-- Chart code -->
     
 <body>
+    <h3>Proportion of students by region not attending school because of nation-wide school closures caused by COVID-19</h3>
     <span>Select Level of Education</span>
     <select name="Level" id="Level">
         <option value="Pre" class=levelo>Pre-primary</option>
@@ -38,14 +63,21 @@
         <option value="Ter" class=levelo>Tertiary</option>
     </select>
     <div id="chartdiv"></div> 
+    <div class="label"></div>
     <span id="note">
     Note: Size of Pie signifies number of learners enrolled before COVID19<br/>
-    Source of Data : UIS; 
+    Source of Data :
+    <a href="http://data.uis.unesco.org/">UIS data centre</a>;
     <a href="https://en.unesco.org/themes/education-emergencies/coronavirus-school-closures">UNESCO on School Closures due to COVID19</a>
     </span>
 
 </body>
 <script>
+    var svg= d3.select('.label').append('svg').attr("height",50).attr('width',370)
+    svg.append('rect').attr('height',20).attr('width',20).attr('fill',"rgb(144,44,46)")
+    svg.append('text').attr("class","labelcolor").text("Percentage of students in the region not attending school").attr("transform","translate(25,15)")
+    svg.append('rect').attr('height',20).attr('width',20).attr('fill',"rgb(40,49,80)").attr("transform","translate(0,25)")
+    svg.append('text').attr("class","labelcolor").text("Percentage of students in the region attending school").attr("transform","translate(25,40)")
     var level='Pri'
     var data=[
   {
@@ -53,10 +85,10 @@
     "REGION_ID": "Arab States",
     "YEAR": 2018,
     "Before": 5733185,
-    "After": 703465,
-    "Rate": "87.73%",
+    "After": 667145,
+    "Rate": "88.36%",
     "Level": "Pre",
-    "minus": 5029720.409
+    "minus": 5066040
   },
   {
     "INDICATOR_ID": 20060,
@@ -66,7 +98,7 @@
     "After": 6602181,
     "Rate": "48.60%",
     "Level": "Pre",
-    "minus": 6242428.013
+    "minus": 6242428
   },
   {
     "INDICATOR_ID": 20060,
@@ -76,27 +108,27 @@
     "After": 279599,
     "Rate": "90.10%",
     "Level": "Pre",
-    "minus": 2545351.053
+    "minus": 2545351
   },
   {
     "INDICATOR_ID": 20060,
     "REGION_ID": "East Asia and the Pacific",
     "YEAR": 2018,
     "Before": 67113126,
-    "After": 8934314,
-    "Rate": "86.69%",
+    "After": 985007,
+    "Rate": "98.53%",
     "Level": "Pre",
-    "minus": 58178812.25
+    "minus": 66128119
   },
   {
     "INDICATOR_ID": 20060,
     "REGION_ID": "Latin America and the Caribbean",
     "YEAR": 2018,
     "Before": 21872378,
-    "After": 5436049,
-    "Rate": "75.15%",
+    "After": 5595616,
+    "Rate": "74.42%",
     "Level": "Pre",
-    "minus": 16436328.52
+    "minus": 16276762
   },
   {
     "INDICATOR_ID": 20060,
@@ -106,7 +138,7 @@
     "After": 9261915.152,
     "Rate": "57.84%",
     "Level": "Pre",
-    "minus": 12706612.52
+    "minus": 12706612.85
   },
   {
     "INDICATOR_ID": 20060,
@@ -116,27 +148,27 @@
     "After": 0,
     "Rate": "100.00%",
     "Level": "Pre",
-    "minus": 24235210.33
+    "minus": 24235210
   },
   {
     "INDICATOR_ID": 20060,
     "REGION_ID": "Sub-Saharan Africa",
     "YEAR": 2018,
     "Before": 25239409,
-    "After": 686321,
-    "Rate": "97.28%",
+    "After": 510670,
+    "Rate": "97.98%",
     "Level": "Pre",
-    "minus": 24553088.2
+    "minus": 24728739
   },
   {
     "INDICATOR_ID": 20062,
     "REGION_ID": "Arab States",
     "YEAR": 2018,
     "Before": 47872167,
-    "After": 8923347,
-    "Rate": "81.36%",
+    "After": 5023213,
+    "Rate": "89.51%",
     "Level": "Pri",
-    "minus": 38948819.72
+    "minus": 42848954
   },
   {
     "INDICATOR_ID": 20062,
@@ -146,7 +178,7 @@
     "After": 7001385,
     "Rate": "65.29%",
     "Level": "Pri",
-    "minus": 13172518.4
+    "minus": 13172518
   },
   {
     "INDICATOR_ID": 20062,
@@ -156,27 +188,27 @@
     "After": 1130104,
     "Rate": "83.91%",
     "Level": "Pri",
-    "minus": 5895626.258
+    "minus": 5895626
   },
   {
     "INDICATOR_ID": 20062,
     "REGION_ID": "East Asia and the Pacific",
     "YEAR": 2018,
     "Before": 186174081,
-    "After": 47984498,
-    "Rate": "74.23%",
+    "After": 3971525,
+    "Rate": "97.87%",
     "Level": "Pri",
-    "minus": 138189582.6
+    "minus": 182202556
   },
   {
     "INDICATOR_ID": 20062,
     "REGION_ID": "Latin America and the Caribbean",
     "YEAR": 2018,
     "Before": 64482867,
-    "After": 18985576,
-    "Rate": "70.56%",
+    "After": 18223070,
+    "Rate": "71.74%",
     "Level": "Pri",
-    "minus": 45497291.08
+    "minus": 46259797
   },
   {
     "INDICATOR_ID": 20062,
@@ -186,7 +218,7 @@
     "After": 27488303.23,
     "Rate": "49.20%",
     "Level": "Pri",
-    "minus": 26627326.4
+    "minus": 26627326.77
   },
   {
     "INDICATOR_ID": 20062,
@@ -196,27 +228,27 @@
     "After": 0,
     "Rate": "100.00%",
     "Level": "Pri",
-    "minus": 202967802.1
+    "minus": 202967802
   },
   {
     "INDICATOR_ID": 20062,
     "REGION_ID": "Sub-Saharan Africa",
     "YEAR": 2018,
     "Before": 167927199,
-    "After": 9749997,
-    "Rate": "94.19%",
+    "After": 7735986,
+    "Rate": "95.39%",
     "Level": "Pri",
-    "minus": 158177202.1
+    "minus": 160191213
   },
   {
     "INDICATOR_ID": 20082,
     "REGION_ID": "Arab States",
     "YEAR": 2018,
     "Before": 32894405,
-    "After": 4175767,
-    "Rate": "87.31%",
+    "After": 2259896,
+    "Rate": "93.13%",
     "Level": "Secondary",
-    "minus": 28718638.26
+    "minus": 30634509
   },
   {
     "INDICATOR_ID": 20082,
@@ -226,7 +258,7 @@
     "After": 10554424,
     "Rate": "68.46%",
     "Level": "Secondary",
-    "minus": 22914189.04
+    "minus": 22914189
   },
   {
     "INDICATOR_ID": 20082,
@@ -236,27 +268,27 @@
     "After": 1713973,
     "Rate": "82.18%",
     "Level": "Secondary",
-    "minus": 7906586.887
+    "minus": 7906587
   },
   {
     "INDICATOR_ID": 20082,
     "REGION_ID": "East Asia and the Pacific",
     "YEAR": 2018,
     "Before": 155424962,
-    "After": 37887230,
-    "Rate": "75.62%",
+    "After": 3467800,
+    "Rate": "97.77%",
     "Level": "Secondary",
-    "minus": 117537732
+    "minus": 151957162
   },
   {
     "INDICATOR_ID": 20082,
     "REGION_ID": "Latin America and the Caribbean",
     "YEAR": 2018,
     "Before": 63620753,
-    "After": 24168807,
-    "Rate": "62.01%",
+    "After": 24632317,
+    "Rate": "61.28%",
     "Level": "Secondary",
-    "minus": 39451946.26
+    "minus": 38988436
   },
   {
     "INDICATOR_ID": 20082,
@@ -266,7 +298,7 @@
     "After": 27440973.41,
     "Rate": "57.50%",
     "Level": "Secondary",
-    "minus": 37130075.62
+    "minus": 37130075.59
   },
   {
     "INDICATOR_ID": 20082,
@@ -276,27 +308,27 @@
     "After": 0,
     "Rate": "100.00%",
     "Level": "Secondary",
-    "minus": 174146960.1
+    "minus": 174146960
   },
   {
     "INDICATOR_ID": 20082,
     "REGION_ID": "Sub-Saharan Africa",
     "YEAR": 2018,
     "Before": 60915890,
-    "After": 3782313,
-    "Rate": "93.79%",
+    "After": 2958323,
+    "Rate": "95.14%",
     "Level": "Secondary",
-    "minus": 57133576.55
+    "minus": 57957567
   },
   {
     "INDICATOR_ID": 25053,
     "REGION_ID": "Arab States",
     "YEAR": 2018,
     "Before": 11325106,
-    "After": 591334,
-    "Rate": "94.78%",
+    "After": 323836,
+    "Rate": "97.14%",
     "Level": "Ter",
-    "minus": 10733771.58
+    "minus": 11001270
   },
   {
     "INDICATOR_ID": 25053,
@@ -306,7 +338,7 @@
     "After": 6275968,
     "Rate": "67.64%",
     "Level": "Ter",
-    "minus": 13117617.65
+    "minus": 13117618
   },
   {
     "INDICATOR_ID": 25053,
@@ -316,27 +348,27 @@
     "After": 309837,
     "Rate": "85.00%",
     "Level": "Ter",
-    "minus": 1755908.019
+    "minus": 1755908
   },
   {
     "INDICATOR_ID": 25053,
     "REGION_ID": "East Asia and the Pacific",
     "YEAR": 2018,
     "Before": 72378115,
-    "After": 13968121.72,
-    "Rate": "80.70%",
+    "After": 1985947,
+    "Rate": "97.26%",
     "Level": "Ter",
-    "minus": 58409993.41
+    "minus": 70392168
   },
   {
     "INDICATOR_ID": 25053,
     "REGION_ID": "Latin America and the Caribbean",
     "YEAR": 2018,
     "Before": 27967160,
-    "After": 8947541,
-    "Rate": "68.01%",
+    "After": 9165752,
+    "Rate": "67.23%",
     "Level": "Ter",
-    "minus": 19019619.46
+    "minus": 18801408
   },
   {
     "INDICATOR_ID": 25053,
@@ -346,7 +378,7 @@
     "After": 20654511.09,
     "Rate": "45.30%",
     "Level": "Ter",
-    "minus": 17103650.14
+    "minus": 17103649.91
   },
   {
     "INDICATOR_ID": 25053,
@@ -356,17 +388,17 @@
     "After": 0,
     "Rate": "100.00%",
     "Level": "Ter",
-    "minus": 44658956.27
+    "minus": 44658956
   },
   {
     "INDICATOR_ID": 25053,
     "REGION_ID": "Sub-Saharan Africa",
     "YEAR": 2018,
     "Before": 8125044,
-    "After": 413299,
-    "Rate": "94.91%",
+    "After": 287299,
+    "Rate": "96.46%",
     "Level": "Ter",
-    "minus": 7711745.101
+    "minus": 7837745
   }
 ]
     $("#Level").change(function () {
@@ -427,9 +459,8 @@
     pieSeriesTemplate.ticks.template.disabled = true;
     
 
-function cal(region) {
-    return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']
-}
+
+
     pieSeries.data = [
         {
       "title": "Arab States",
@@ -560,7 +591,7 @@ function cal(region) {
     
     // Set map definition
     chart.geodata = am4geodata_continentsLow;
-    
+    chart.responsive.enabled = true;
     // Set projection
     chart.projection = new am4maps.projections.Miller();
     
@@ -591,7 +622,7 @@ function cal(region) {
     
     var pieTitle = pieChartTemplate.titles.create();
     pieTitle.text = "{title}";
-    pieTitle.fontSize = 13;
+    pieTitle.fontSize = '1.08em';
 
     var pieSeriesTemplate = pieChartTemplate.series.push(new am4charts.PieSeries);
     pieSeriesTemplate.dataFields.category = "category";
@@ -599,10 +630,22 @@ function cal(region) {
     pieSeriesTemplate.labels.template.disabled = true;
     pieSeriesTemplate.ticks.template.disabled = true;
     
+      
+  var width= $(window).width();
+  console.log(width);
 
-function cal(region) {
-    return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']
+    function cal(region) {
+    if (width<400) {
+      console.log(1);
+      
+      // return 1/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']*width/180000
+      return 3
+    }
+    else{return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']*width/1080}
 }
+// function cal(region) {
+//     return 400/levelsum*datanew.filter(d=>d.REGION_ID==region)[0]['Before']
+// }
     pieSeries.data = [
         {
       "title": "Arab States",
