@@ -95,7 +95,8 @@
     Size of Pie signifies number of learners enrolled in the region before COVID19 in 2018<br/>
     Source of Data :
     <a href="http://data.uis.unesco.org/">UIS data centre</a>;
-    <a href="https://en.unesco.org/themes/education-emergencies/coronavirus-school-closures">UNESCO on School Closures due to COVID19</a>
+    <a href="https://en.unesco.org/themes/education-emergencies/coronavirus-school-closures">UNESCO on School Closures due to COVID19</a><br/>
+    Data Captured: 30 March 2020
     </span>
 
 </body>
@@ -103,15 +104,13 @@
 
   // "rgb(144,44,46)"
   // "rgb(40,49,80)"
-    var svg= d3.select('.label').append('svg').attr("height",40).attr('width',370)
-    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(243,194,6)")
+     var svg= d3.select('.label').append('svg').attr("height",40).attr('width',370)
+    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(140,96,123)")
     svg.append('text').attr("class","labelcolor").text("Students in the region under National School Closures").attr("transform","translate(25,10)")
     svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(246,125,8)").attr("transform","translate(0,15)")
     svg.append('text').attr("class","labelcolor").text("Students in the region under Localized School Closures").attr("transform","translate(25,25)")
-    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(140,96,123)").attr("transform","translate(0,30)")
-    svg.append('text').attr("class","labelcolor").text("Other Students in the region").attr("transform","translate(25,40)")
-   
-   
+    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(243,194,6)").attr("transform","translate(0,30)")
+    svg.append('text').attr("class","labelcolor").text("Students in the region where there is no record of closures").attr("transform","translate(25,40)")
    
    var level=''
     d3.csv('cal.csv').then(
@@ -204,7 +203,6 @@ function draw(data,level) {
 
  
 
-
     pieSeries.data = [
         {
       "title": "Arab States",
@@ -212,14 +210,16 @@ function draw(data,level) {
       "longitude": 45,
       "width": cal("Arab States"),
       "height": cal("Arab States"),
-      "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_nation']
-      }, 
+      "pieData": [
+
       {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_others']
       },
+      {
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_nation']
+      }, 
       {
         "category": "Localized Closure",
         "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_local']
@@ -231,12 +231,13 @@ function draw(data,level) {
       "longitude": 40,
       "width": cal("Central and Eastern Europe"),
       "height": cal("Central and Eastern Europe"),
-      "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_nation']
-      }, {
+      "pieData": [ {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_others']
+      },
+      {
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_nation']
       },
       {
         "category": "Localized Closure",
@@ -249,12 +250,13 @@ function draw(data,level) {
       "width": cal("Central Asia"),
       "height": cal("Central Asia"),
       "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_nation']
-      }, {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_others']
       },
+      {
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_nation']
+      }, 
       {
         "category": "Localized Closure",
         "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_local']
@@ -265,12 +267,13 @@ function draw(data,level) {
       "longitude": 140,
       "width": cal("East Asia and the Pacific"),
       "height": cal("East Asia and the Pacific"),
-      "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_nation']
-      }, {
+      "pieData": [ {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_others']
+      },
+      {
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_nation']
       },
       {
         "category": "Localized Closure",
@@ -284,12 +287,13 @@ function draw(data,level) {
       "width": cal("Latin America and the Caribbean"),
       "height": cal("Latin America and the Caribbean"),
       "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_nation']
-      }, {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_others']
       },{
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_nation']
+      }, 
+      {
         "category": "Localized Closure",
         "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_local']
       }
@@ -301,12 +305,12 @@ function draw(data,level) {
       "longitude": -50,
       "width": cal("North America and Western Europe"),
       "height": cal("North America and Western Europe"),
-      "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_nation']
-      }, {
+      "pieData": [ {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_others']
+      },{
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_nation']
       },{
         "category": "Localized Closure",
         "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_local']
@@ -319,12 +323,12 @@ function draw(data,level) {
       "width": cal("South and West Asia"),
       "height": cal("South and West Asia"),
       "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_nation']
-      }, {
         "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_others']
       },{
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_nation']
+      }, {
         "category": "Localized Closure",
         "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_local']
       }]
@@ -334,12 +338,12 @@ function draw(data,level) {
       "longitude": 25,
       "width": cal("Sub-Saharan Africa"),
       "height": cal("Sub-Saharan Africa"),
-      "pieData": [{
-        "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_nation']
-      }, { "category": "No Record of Closures",
+      "pieData": [{ "category": "No Record of Closures",
         "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_others']
       },{
+        "category": "National Closure",
+        "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_nation']
+      }, {
         "category": "Localized Closure",
         "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_local']
       }]
