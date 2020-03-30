@@ -96,7 +96,7 @@
     Source of Data :
     <a href="http://data.uis.unesco.org/">UIS data centre</a>;
     <a href="https://en.unesco.org/themes/education-emergencies/coronavirus-school-closures">UNESCO on School Closures due to COVID19</a><br/>
-    Data Captured: 30 March 2020    <a href="https://anndawn.github.io/students_not_attending/cal.csv">Data Download</a>
+    Data Captured: 30 March 2020   <a href="https://anndawn.github.io/students_not_attending/cal.csv">Data Download</a>
     </span>
 
 </body>
@@ -104,13 +104,15 @@
 
   // "rgb(144,44,46)"
   // "rgb(40,49,80)"
-     var svg= d3.select('.label').append('svg').attr("height",46).attr('width',370)
-    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(140,96,123)")
+    var svg= d3.select('.label').append('svg').attr("height",40).attr('width',370)
+    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(144,44,46)")
     svg.append('text').attr("class","labelcolor").text("Students in the region under National School Closures").attr("transform","translate(25,10)")
-    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(246,125,8)").attr("transform","translate(0,15)")
+    svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(40,49,80)").attr("transform","translate(0,15)")
     svg.append('text').attr("class","labelcolor").text("Students in the region under Localized School Closures").attr("transform","translate(25,25)")
     svg.append('rect').attr('height',10).attr('width',10).attr('fill',"rgb(243,194,6)").attr("transform","translate(0,30)")
     svg.append('text').attr("class","labelcolor").text("Students in the region where there is no record of closures").attr("transform","translate(25,40)")
+   
+   
    
    var level=''
     d3.csv('cal.csv').then(
@@ -135,7 +137,7 @@ function draw(data,level) {
     console.log(level,levelsum,datanew);
     
     // Themes begin
-    am4core.useTheme(am4themes_dataviz);
+    // am4core.useTheme(am4themes_dataviz);
     am4core.useTheme(am4themes_kelly);
     am4core.useTheme(am4themes_animated);
     // Themes end
@@ -192,6 +194,15 @@ function draw(data,level) {
     pieSeriesTemplate.dataFields.value = "value";
     pieSeriesTemplate.labels.template.disabled = true;
     pieSeriesTemplate.ticks.template.disabled = true;
+    pieSeriesTemplate.colors.step = 10;
+    // var colorSet = new am4core.ColorSet();
+    // colorSet.list = ["#388E3C", "#FBC02D", "#0288d1", "#F44336", "#8E24AA"].map(function(color) {
+    //   return new am4core.color(color);
+    // });
+    // pieSeriesTemplate.slices.colors=colorSet
+     pieSeriesTemplate.slices.template.configField = "config"
+
+
 
     function cal(region) {
     if (width<400) {
@@ -202,6 +213,7 @@ function draw(data,level) {
 }
 
  
+
 
     pieSeries.data = [
         {
@@ -214,15 +226,22 @@ function draw(data,level) {
 
       {
         "category": "No Record of Closures",
-        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_others']
+        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_others'],
+
       },
       {
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       }, 
       {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='Arab States')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }
     ]
     }, {
@@ -237,11 +256,17 @@ function draw(data,level) {
       },
       {
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       },
       {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='Central and Eastern Europe')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }]
     }, {
       "title": "Central Asia",
@@ -255,11 +280,17 @@ function draw(data,level) {
       },
       {
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       }, 
       {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='Central Asia')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }]
     }, {
       "title": "East Asia and the Pacific",
@@ -273,11 +304,17 @@ function draw(data,level) {
       },
       {
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       },
       {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='East Asia and the Pacific')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }]
     },
     {
@@ -291,11 +328,17 @@ function draw(data,level) {
         "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_others']
       },{
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       }, 
       {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='Latin America and the Caribbean')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }
     ]
     },
@@ -310,10 +353,16 @@ function draw(data,level) {
         "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_others']
       },{
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       },{
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='North America and Western Europe')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }]
     },
     {
@@ -327,10 +376,16 @@ function draw(data,level) {
         "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_others']
       },{
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       }, {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='South and West Asia')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }]
     }, {
       "title": "Sub-Saharan Africa",
@@ -342,10 +397,16 @@ function draw(data,level) {
         "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_others']
       },{
         "category": "National Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_nation']
+        "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_nation'],
+        "config": {
+          "fill": "rgb(144,44,46)"
+        }
       }, {
         "category": "Localized Closure",
-        "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_local']
+        "value": datanew.filter(d=>d.Region.trim()=='Sub-Saharan Africa')[0]['VALUE_local'],
+        "config": {
+          "fill":  "rgb(40,49,80)"
+        }
       }]
     }];
     
